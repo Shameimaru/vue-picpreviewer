@@ -59,8 +59,11 @@
                     transform: transform.join(' ')
                 }
             },
+
             picInfo() {
-                return this.name !== undefined ? this.name : '';
+                if(this.name !== '') {
+                    return `${ this.name }(${ this.size.width } x ${ this.size.height })`
+                }
             }
         },
         methods: {
@@ -185,5 +188,12 @@
     .image-previewer__info {
         color: #fff;
         text-align: center;
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        left: 50%;
+        margin-left: -100px;
+        top: 78%;
+
     }
 </style>

@@ -1,12 +1,15 @@
 <template>
     <div>
         <div>
-            <img
-                v-for="(src, index) in imageSrc"
-                :key="index"
-                :src="src"
-                @click="imageClickHandler($event, index)"
-            />
+            <div
+                class="images"
+                :is="options.tag"
+                 v-for="(imageObj, index) in imageArr"
+                 :key="index"
+                 :src="isImg ? imageObj.src : false"
+                 @click="imageClickHandler($event, index)"
+                 :style="isImg ? {} : { backgroundImage: 'url(' + imageObj.src + ')' }"
+            ></div>
             <previewer-dialog
                 ref="previewer"
                 :src="picSrc"
@@ -33,17 +36,17 @@
             }
         },
         created() {
-            if(window.imagePreviewerVM === undefined) {
+            if (window.imagePreviewerVM === undefined) {
                 window.imagePreviewerVM = [];
             }
             window.imagePreviewerVM.push(this);
         },
         mounted() {
             const vm = this;
-            setTimeout(function() {
-                vm.sizeArr = vm.imageSrc.map((src) => {
+            setTimeout(function () {
+                vm.sizeArr = vm.imageArr.map((imageObj) => {
                     const image = new Image();
-                    image.src = src;
+                    image.src = imageObj.src;
                     return {
                         width: image.width,
                         height: image.height
@@ -53,10 +56,10 @@
         },
         computed: {
             picSrc() {
-                return this.imageSrc[this.currentIndex];
+                return this.imageArr[this.currentIndex].src;
             },
             picSize() {
-                if(this.sizeArr.length !== 0) {
+                if (this.sizeArr.length !== 0) {
                     return this.sizeArr[this.currentIndex];
                 } else {
                     return {
@@ -66,10 +69,18 @@
                 }
             },
             picName() {
-                if(this.names !== undefined && this.names[this.currentIndex] !== undefined) {
-                    return this.names[this.currentIndex];
+                if (this.imageArr[this.currentIndex].name !== undefined) {
+                    return this.imageArr[this.currentIndex].name;
                 }
                 return '';
+            },
+            isImg() {
+                return this.options.tag === 'img';
+            },
+            picStyle() {
+                return {
+
+                }
             }
         },
         methods: {
@@ -78,35 +89,44 @@
                 this.currentIndex = index;
             },
             nextPic() {
-                if(this.currentIndex < this.imageSrc.length - 1) {
+                if (this.currentIndex < this.imageArr.length - 1) {
                     this.currentIndex++;
                 }
             },
             prevPic() {
-                if(this.currentIndex > 0) {
+                if (this.currentIndex > 0) {
                     this.currentIndex--;
                 }
             },
             playPic() {
-                this.currentIndex = (this.currentIndex + 1 + this.imageSrc.length) % this.imageSrc.length;
+                this.currentIndex = (this.currentIndex + 1 + this.imageArr.length) % this.imageArr.length;
             }
         },
         components: {
             PreviewerDialog
         },
         props: {
-            imageSrc: {
+            imageArr: {
                 type: Array,
                 required: true
             },
             names: {
                 type: Array,
                 required: false
+            },
+            options: {
+                type: Object,
+                required: true
             }
         }
     };
 </script>
 
-<style>
+<style scoped="scoped">
     @import "../stylesheet/reset.less";
+    .images {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 </style>
