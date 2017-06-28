@@ -4,7 +4,9 @@
   "description": "A picture previewer based on vue",
   "main": "src/index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server --inline --hot",
+    "prod": "cross-env NODE_ENV=prod webpack"
   },
   "repository": {
     "type": "git",
@@ -12,9 +14,11 @@
   },
   "keywords": [
     "fed",
-    "vue"
+    "javascript",
+    "vue",
+    "picture previewer"
   ],
-  "author": "",
+  "author": "Raven",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Shameimaru/vue-picpreviewer/issues"
@@ -28,7 +32,10 @@
     "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
+    "html-loader": "^0.4.5",
+    "html-webpack-plugin": "^2.29.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.4",
     "pug": "^2.0.0-rc.2",
