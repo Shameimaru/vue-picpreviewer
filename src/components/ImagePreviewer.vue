@@ -9,8 +9,9 @@
             />
             <previewer-dialog
                 ref="previewer"
-                :src="previewerSrc"
-                :size="previewerSize"
+                :src="picSrc"
+                :size="picSize"
+                :name="picName"
                 @next-pic="nextPic"
                 @prev-pic="prevPic"
                 @play-pic="playPic"
@@ -51,10 +52,10 @@
             }, 100)
         },
         computed: {
-            previewerSrc() {
+            picSrc() {
                 return this.imageSrc[this.currentIndex];
             },
-            previewerSize() {
+            picSize() {
                 if(this.sizeArr.length !== 0) {
                     return this.sizeArr[this.currentIndex];
                 } else {
@@ -63,6 +64,12 @@
                         height: 0
                     }
                 }
+            },
+            picName() {
+                if(this.names !== undefined && this.names[this.currentIndex] !== undefined) {
+                    return this.names[this.currentIndex];
+                }
+                return '';
             }
         },
         methods: {
@@ -91,11 +98,15 @@
             imageSrc: {
                 type: Array,
                 required: true
+            },
+            names: {
+                type: Array,
+                required: false
             }
         }
     };
 </script>
 
 <style>
-
+    @import "../stylesheet/reset.less";
 </style>

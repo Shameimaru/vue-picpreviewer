@@ -9,12 +9,6 @@
         <li @click.stop="$emit('reset-size')">
             <span>1:1</span>
         </li>
-        <li @click.stop="$emit('rotate-left')">
-            <icon name="rotate-left"></icon>
-        </li>
-        <li @click.stop="$emit('rotate-right')">
-            <icon name="rotate-right"></icon>
-        </li>
         <li @click.stop="$emit('reset-rotate')">
             <icon name="circle-o"></icon>
         </li>
@@ -27,6 +21,13 @@
         <li @click.stop="$emit('next-pic')">
             <icon name="arrow-right"></icon>
         </li>
+        <li @click.stop="$emit('rotate-left')">
+            <icon name="rotate-left"></icon>
+        </li>
+        <li @click.stop="$emit('rotate-right')">
+            <icon name="rotate-right"></icon>
+        </li>
+
         <li @click.stop="$emit('flip-x')">
             <icon name="arrows-h"></icon>
         </li>
@@ -40,19 +41,19 @@
     import 'vue-awesome/icons';
     import Icon from 'vue-awesome/components/Icon';
     export default {
-        data() {
-            return {
-                isPlay: false
-            }
-        },
         methods: {
             togglePlay() {
-                this.isPlay = !this.isPlay;
                 this.$emit('play-pic')
             }
         },
         components: {
             Icon
+        },
+        props: {
+            isPlay: {
+                required: true,
+                type: Boolean
+            }
         }
     };
 </script>
@@ -71,7 +72,7 @@
             box-sizing: border-box;
             width: 40px;
             height: 40px;
-            line-height: 36px;
+            line-height: 32px;
             text-align: center;
             color: #ffffff;
             background-color: #3C3C3C;

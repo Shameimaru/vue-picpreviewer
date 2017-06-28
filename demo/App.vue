@@ -8,6 +8,7 @@
             require('./assets/images/4.jpg'),
             require('./assets/images/5.jpg')
         ]"
+        :names="['a pic']"
     ></image-previewer>
 </template>
 

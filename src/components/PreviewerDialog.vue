@@ -3,8 +3,12 @@
         <div class="image-previewer__mask"></div>
         <div class="image-previewer__content" @click="isShow = false">
             <img class="current-image" :style="imgStyle" :src="src" />
+            <div class="image-previewer__info" v-show="picInfo !== ''">
+                {{ picInfo }}
+            </div>
         </div>
         <operation-buttons
+            :isPlay="isPlay"
             @zoom-in="zoomIn"
             @zoom-out="zoomOut"
             @reset-size="resetSize"
@@ -30,6 +34,7 @@
                 isShow: false,
                 isFlipX: false,
                 isFlipY: false,
+                isPlay: false,
                 playId: ''
             }
         },
@@ -53,15 +58,21 @@
                     marginLeft,
                     transform: transform.join(' ')
                 }
+            },
+            picInfo() {
+                return this.name !== undefined ? this.name : '';
             }
         },
         methods: {
             show() {
-                this.multiplier = 1;
-                this.rotateArg = 0;
-                this.isFlipX = false;
-                this.isFlipY = false;
+                this.resetAll();
                 this.isShow = true;
+                this.isPlay = false;
+                const vm = this;
+                if(vm.playId !== '') {
+                    window.clearInterval(vm.playId);
+                    vm.playId = '';
+                }
             },
             zoomIn() {
                 this.multiplier += 0.5;
@@ -85,6 +96,9 @@
                 this.resetSize();
                 this.resetRotate();
                 this.resetFlip();
+                this.isFlipX = false;
+                this.isFlipY = false;
+
             },
             rotateLeft() {
                 this.rotateArg --;
@@ -104,8 +118,10 @@
                 const vm = this;
                 if(vm.playId !== '') {
                     window.clearInterval(vm.playId);
+                    this.isPlay = false;
                     vm.playId = '';
                 } else {
+                    this.isPlay = true;
                     vm.playId = window.setInterval(function() {
                         vm.resetAll();
                         vm.$emit('play-pic');
@@ -127,6 +143,10 @@
             size: {
                 type: Object,
                 required: true
+            },
+            name: {
+                type: String,
+                required: false
             }
         },
         components: {
@@ -144,7 +164,7 @@
         bottom: 0;
     }
     .image-previewer__mask {
-        background-color: rgba(120, 120, 120, 0.4);
+        background-color: rgba(0, 0, 0, 0.4);
         width: 100%;
         height: 100%;
         position: absolute;
@@ -161,5 +181,9 @@
     }
     .image-previewer__content img {
         transition: all 0.3s;
+    }
+    .image-previewer__info {
+        color: #fff;
+        text-align: center;
     }
 </style>
