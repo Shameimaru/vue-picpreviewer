@@ -7,6 +7,9 @@ const basePath = path.resolve(__dirname, '../demo/');
 
 module.exports = {
     entry: {
+        vue: 'vue',
+        vueAwesomeIcons: 'vue-awesome/icons',
+        vueAwesomeComponents: 'vue-awesome/components/Icon',
         main: path.resolve(basePath, './index.js')
     },
     module: {
@@ -56,7 +59,7 @@ module.exports = {
     },
     plugins: [
         new webpack.optimize.CommonsChunkPlugin({
-            names: ['menifest'],
+            names: ['vueAwesomeIcons', 'vueAwesomeComponents', 'vue', 'menifest'],
             minChunks: Infinity
         })
     ],

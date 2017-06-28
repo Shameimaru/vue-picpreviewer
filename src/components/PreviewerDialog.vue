@@ -59,6 +59,8 @@
             show() {
                 this.multiplier = 1;
                 this.rotateArg = 0;
+                this.isFlipX = false;
+                this.isFlipY = false;
                 this.isShow = true;
             },
             zoomIn() {
