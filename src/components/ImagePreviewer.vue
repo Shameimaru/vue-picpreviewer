@@ -7,12 +7,21 @@
                 :src="src"
                 @click="imageClickHandler($event, index)"
             />
+            <previewer-dialog
+                ref="previewer"
+                :src="previewerSrc"
+                :size="previewerSize"
+                @next-pic="nextPic"
+                @prev-pic="prevPic"
+                @play-pic="playPic"
+            ></previewer-dialog>
         </div>
 
     </div>
 </template>
 
 <script>
+    import PreviewerDialog from '@/components/PreviewerDialog.vue';
 
     export default {
         name: 'ImagePreviewer',
@@ -74,6 +83,9 @@
             playPic() {
                 this.currentIndex = (this.currentIndex + 1 + this.imageSrc.length) % this.imageSrc.length;
             }
+        },
+        components: {
+            PreviewerDialog
         },
         props: {
             imageSrc: {
