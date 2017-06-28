@@ -65,5 +65,11 @@ module.exports = {
             filename: 'index.html',
             template: path.resolve(__dirname, './index.pug')
         })
-    ]
+    ],
+    resolve: {
+        extensions: ['.js', '.vue'],
+        alias: {
+            '@': basePath
+        }
+    }
 };

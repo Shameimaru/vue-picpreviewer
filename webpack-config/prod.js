@@ -4,6 +4,9 @@
 const path = require('path');
 const webpackMerge = require('webpack-merge');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const UglifyPlugin = require('uglifyjs-webpack-plugin');
+const CleanPlugin = require('clean-webpack-plugin');
+
 const baseConfig = require('./base');
 
 const basePath = path.resolve(__dirname, '../src');
@@ -54,6 +57,17 @@ const config = {
     plugins: [
         new ExtractTextPlugin({
             filename: "bundle.[chunkhash].css"
+        }),
+        new UglifyPlugin({
+            compress: {
+                warnings: false
+            },
+            output: {
+                comments: false
+            }
+        }),
+        new CleanPlugin(['dist'], {
+            root: path.resolve(__dirname, '../')
         })
     ],
 };
