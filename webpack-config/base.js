@@ -3,7 +3,6 @@
  */
 const path = require('path');
 const webpack = require('webpack');
-const htmlWebpackPlugin = require('html-webpack-plugin');
 const basePath = path.resolve(__dirname, '../demo/');
 
 module.exports = {
@@ -59,11 +58,6 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             names: ['menifest'],
             minChunks: Infinity
-        }),
-        new htmlWebpackPlugin({
-            title: 'development page',
-            filename: 'index.html',
-            template: path.resolve(__dirname, './index.pug')
         })
     ],
     resolve: {

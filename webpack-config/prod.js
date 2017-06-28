@@ -9,11 +9,14 @@ const CleanPlugin = require('clean-webpack-plugin');
 
 const baseConfig = require('./base');
 
-const basePath = path.resolve(__dirname, '../demo');
-console.log(path.resolve(basePath, '../dist'));
+const basePath = path.resolve(__dirname, '../src');
 
 const config = {
+    entry: {
+        main: path.resolve(basePath, './index.js')
+    },
     output: {
+
         filename: '[name].bundle.[chunkhash].js',
         path: path.resolve(basePath, '../dist'),
         publicPath : '/'

@@ -4,6 +4,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
+const htmlWebpackPlugin = require('html-webpack-plugin');
 
 const baseConfig = require('./base');
 
@@ -28,7 +29,12 @@ const config = {
         }]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new htmlWebpackPlugin({
+            title: 'development page',
+            filename: 'index.html',
+            template: path.resolve(__dirname, './index.pug')
+        })
     ]
 };
 
