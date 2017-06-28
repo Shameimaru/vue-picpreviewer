@@ -9,7 +9,7 @@ const CleanPlugin = require('clean-webpack-plugin');
 
 const baseConfig = require('./base');
 
-const basePath = path.resolve(__dirname, '../src');
+const basePath = path.resolve(__dirname, '../demo');
 console.log(path.resolve(basePath, '../dist'));
 
 const config = {

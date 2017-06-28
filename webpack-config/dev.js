@@ -7,7 +7,7 @@ const webpackMerge = require('webpack-merge');
 
 const baseConfig = require('./base');
 
-const basePath = path.resolve(__dirname, '../src/');
+const basePath = path.resolve(__dirname, '../demo/');
 const config = {
     entry: {
     },

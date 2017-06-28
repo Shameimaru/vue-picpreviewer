@@ -4,7 +4,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const htmlWebpackPlugin = require('html-webpack-plugin');
-const basePath = path.resolve(__dirname, '../src/');
+const basePath = path.resolve(__dirname, '../demo/');
 
 module.exports = {
     entry: {
@@ -69,7 +69,7 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            '@': basePath,
+            '@': path.resolve(__dirname, '../src/'),
             'vue$': 'vue/dist/vue.js',
         }
     }
