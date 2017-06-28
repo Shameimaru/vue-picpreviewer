@@ -67,9 +67,10 @@ module.exports = {
         })
     ],
     resolve: {
-        extensions: ['.js', '.vue'],
+        extensions: ['.js', '.vue', '.json'],
         alias: {
-            '@': basePath
+            '@': basePath,
+            'vue$': 'vue/dist/vue.js',
         }
     }
 };
