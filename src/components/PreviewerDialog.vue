@@ -1,7 +1,7 @@
 <template>
     <div class="image-previewer" v-show="isShow">
         <div class="image-previewer__mask"></div>
-        <div class="image-previewer__content" @click="isShow = false">
+        <div class="image-previewer__content" @click.stop="isShow = false">
             <img class="current-image" :style="imgStyle" :src="src" />
             <div class="image-previewer__info" v-show="picInfo !== ''">
                 {{ picInfo }}

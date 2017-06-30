@@ -1,15 +1,18 @@
 <template>
     <div>
-        <div>
+        <div @click="imageClickHandler">
             <div
+                v-if="isShowPlate"
                 class="images"
-                :is="options.tag"
-                 v-for="(imageObj, index) in imageArr"
-                 :key="index"
-                 :src="isImg ? imageObj.src : false"
-                 @click="imageClickHandler($event, index)"
-                 :style="isImg ? {} : { backgroundImage: 'url(' + imageObj.src + ')' }"
+                :is="tag"
+                v-for="(imageObj, index) in imageArr"
+                :key="index"
+                :src="isImg ? imageObj.src : false"
+                :style="isImg ? {} : { backgroundImage: 'url(' + imageObj.src + ')' }"
             ></div>
+            <div class="slot-container">
+                <slot></slot>
+            </div>
             <previewer-dialog
                 ref="previewer"
                 :src="picSrc"
@@ -52,9 +55,12 @@
                         height: image.height
                     }
                 });
-            }, 100)
+            }, 500)
         },
         computed: {
+            isShowPlate() {
+                return this.tag !== 'none';
+            },
             picSrc() {
                 return this.imageArr[this.currentIndex].src;
             },
@@ -75,18 +81,37 @@
                 return '';
             },
             isImg() {
-                return this.options.tag === 'img';
-            },
-            picStyle() {
-                return {
-
-                }
+                return this.tag === 'img';
             }
         },
         methods: {
-            imageClickHandler(event, index) {
-                this.$refs.previewer.show();
-                this.currentIndex = index;
+            imageClickHandler(event) {
+                const target = event.target;
+                let allNodes = null;
+                let isIndexChanged = false;
+
+                if (target.tagName.toLowerCase() === this.tag.toLowerCase()) {
+                    allNodes = target.parentNode.children;
+                    isIndexChanged = true;
+                }
+                else if (target.classList.contains(this.viewclass)) {
+                    let closest = target.parentNode;
+                    while (!closest.classList.contains('slot-container')) {
+                        closest = closest.parentNode;
+                    }
+                    allNodes = document.getElementsByClassName(this.viewclass, closest);
+                    isIndexChanged = true;
+                }
+                if(isIndexChanged) {
+                    let index = -1;
+                    for (let i in allNodes) {
+                        if (allNodes[i] === target) {
+                            index = i;
+                        }
+                    }
+                    this.$refs.previewer.show();
+                    this.currentIndex = index;
+                }
             },
             nextPic() {
                 if (this.currentIndex < this.imageArr.length - 1) {
@@ -114,9 +139,13 @@
                 type: Array,
                 required: false
             },
-            options: {
-                type: Object,
+            tag: {
+                type: String,
                 required: true
+            },
+            viewclass: {
+                type: String,
+                required: false
             }
         }
     };
@@ -124,6 +153,7 @@
 
 <style scoped="scoped">
     @import "../stylesheet/reset.less";
+
     .images {
         background-position: center center;
         background-repeat: no-repeat;
