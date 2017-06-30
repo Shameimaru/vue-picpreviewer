@@ -91,7 +91,7 @@
                 let isIndexChanged = false;
 
                 if (target.tagName.toLowerCase() === this.tag.toLowerCase()) {
-                    allNodes = target.parentNode.children;
+                    allNodes = target.parentNode.getElementsByClassName('images');
                     isIndexChanged = true;
                 }
                 else if (target.classList.contains(this.viewclass)) {
@@ -99,12 +99,15 @@
                     while (!closest.classList.contains('slot-container')) {
                         closest = closest.parentNode;
                     }
-                    allNodes = document.getElementsByClassName(this.viewclass, closest);
+                    allNodes = closest.getElementsByClassName(this.viewclass);
                     isIndexChanged = true;
+
                 }
+
+                console.log(allNodes);
                 if(isIndexChanged) {
                     let index = -1;
-                    for (let i in allNodes) {
+                    for (let i = 0; i < allNodes.length; i++) {
                         if (allNodes[i] === target) {
                             index = i;
                         }
