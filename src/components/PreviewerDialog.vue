@@ -2,7 +2,7 @@
     <div class="image-previewer" v-show="isShow">
         <div class="image-previewer__mask"></div>
         <div class="image-previewer__content" @click.stop="isShow = false">
-            <img class="current-image" :style="imgStyle" :src="src" />
+            <img class="current-image" :style="calcStyle" :src="src" />
             <div class="image-previewer__info" v-show="picInfo !== ''">
                 {{ picInfo }}
             </div>
@@ -40,22 +40,18 @@
         },
 
         computed: {
-            imgStyle() {
-                const width = this.size.width * this.multiplier,
-                    height = this.size.height * this.multiplier,
-                    marginTop = (window.innerHeight - height) / 2 + 'px',
-                    marginLeft = (window.innerWidth - width) / 2 + 'px';
+            calcStyle() {
+                const scaleX = this.multiplier * (this.isFlipX ? -1 : 1),
+                    scaleY = this.multiplier * (this.isFlipY ? -1 : 1);
                 const transform = [];
                 transform.push(
                     `rotate(${ this.rotateArg * 90 }deg)`,
-                    this.isFlipX ? 'scaleX(-1)' : '',
-                    this.isFlipY ? 'scaleY(-1)' : ''
+                    `scaleX(${ scaleX })`,
+                    `scaleY(${ scaleY })`
                 );
                 return {
-                    width: `${width}px`,
+                    width: `auto`,
                     height: `auto`,
-                    marginTop,
-                    marginLeft,
                     transform: transform.join(' ')
                 }
             },
@@ -175,6 +171,7 @@
         top: 0;
     }
     .image-previewer__content {
+        display: flex;
         position: absolute;
         z-index: 1000;
         width: 100%;
@@ -183,6 +180,7 @@
         left: 0;
     }
     .image-previewer__content img {
+        margin: auto;
         transition: all 0.3s;
     }
     .image-previewer__info {
@@ -194,6 +192,5 @@
         left: 50%;
         margin-left: -100px;
         top: 78%;
-
     }
 </style>

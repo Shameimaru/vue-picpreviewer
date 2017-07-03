@@ -38,25 +38,6 @@
                 sizeArr: []
             }
         },
-        created() {
-            if (window.imagePreviewerVM === undefined) {
-                window.imagePreviewerVM = [];
-            }
-            window.imagePreviewerVM.push(this);
-        },
-        mounted() {
-            const vm = this;
-            setTimeout(function () {
-                vm.sizeArr = vm.imageArr.map((imageObj) => {
-                    const image = new Image();
-                    image.src = imageObj.src;
-                    return {
-                        width: image.width,
-                        height: image.height
-                    }
-                });
-            }, 500)
-        },
         computed: {
             isShowPlate() {
                 return this.tag !== 'none';
@@ -103,8 +84,6 @@
                     isIndexChanged = true;
 
                 }
-
-                console.log(allNodes);
                 if(isIndexChanged) {
                     let index = -1;
                     for (let i = 0; i < allNodes.length; i++) {
