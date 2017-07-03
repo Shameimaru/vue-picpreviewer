@@ -3,9 +3,6 @@
         <div class="image-previewer__mask"></div>
         <div class="image-previewer__content" @click.stop="isShow = false">
             <img class="current-image" :style="calcStyle" :src="src" />
-            <div class="image-previewer__info" v-show="picInfo !== ''">
-                {{ picInfo }}
-            </div>
         </div>
         <operation-buttons
             :isPlay="isPlay"
@@ -50,15 +47,7 @@
                     `scaleY(${ scaleY })`
                 );
                 return {
-                    width: `auto`,
-                    height: `auto`,
                     transform: transform.join(' ')
-                }
-            },
-
-            picInfo() {
-                if(this.name !== '') {
-                    return `${ this.name }(${ this.size.width } x ${ this.size.height })`
                 }
             }
         },
@@ -180,17 +169,9 @@
         left: 0;
     }
     .image-previewer__content img {
+        width: auto;
+        height: auto;
         margin: auto;
         transition: all 0.3s;
-    }
-    .image-previewer__info {
-        color: #fff;
-        text-align: center;
-        position: absolute;
-        width: 200px;
-        height: 200px;
-        left: 50%;
-        margin-left: -100px;
-        top: 78%;
     }
 </style>

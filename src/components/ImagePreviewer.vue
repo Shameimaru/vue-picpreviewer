@@ -117,10 +117,6 @@
                 type: Array,
                 required: true
             },
-            names: {
-                type: Array,
-                required: false
-            },
             tag: {
                 type: String,
                 required: true
