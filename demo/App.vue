@@ -80,7 +80,7 @@
         <div style="clear: both"></div>
         <div>
             <image-previewer
-                    class="image-plate23"
+                    class="image-plate"
                     tag="richtext"
             >
                 <div v-html="richTextSegment">
