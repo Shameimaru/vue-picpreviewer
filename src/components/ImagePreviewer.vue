@@ -90,7 +90,7 @@
                         } else {
                             const backgroundImage = el.style.backgroundImage;
                             this.imageArr.push({
-                                src: /^url\("?(.+)"?\)$/g.exec(backgroundImage)[1]
+                                src: /^url\((['"]?)(.*)\1\)$/g.exec(backgroundImage)[2]
                             });
                         }
                     }

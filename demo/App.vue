@@ -143,7 +143,8 @@
                 '                                        width: 100px;\n' +
                 '                                        height: 70px"\n' +
                 '\n' +
-                '                    ></div>'
+                '                    ></div>' +
+                '<div class="image_view" style="background:url(&quot;http://wxtestpb-10048617.image.myqcloud.com/c284a455-21cf-4e08-b6f3-13c31f28228a?imageView2/q/100/w/800&quot;) center center / cover no-repeat;width: 100px;height: 70px"></div>'
             }
         },
         components: {
